@@ -5,6 +5,6 @@ the string of the number
 """
 
 
-def floor(n: float) -> str:
+def to_str(n: float) -> str:
     """ Returns the string of the given float"""
     return str(n)
