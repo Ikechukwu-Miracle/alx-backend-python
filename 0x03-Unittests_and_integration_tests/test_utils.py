@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Unittest module that is parameterized"""
-import Unittest
+import unittest
 from parameterized import parameterized
 from typing import Dict, Tuple, Union
 from utils import access_nested_map
@@ -24,5 +24,4 @@ class TestAcessNestedMap(Unittest.Testcase):
             expected: Union[Dict, int],
             ) -> None:
         """Test method that for expected results"""
-
         self.assertEqual(access_nested_map(nested_map, path), expected)
