@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Unittest module that is parameterized"""
 import unittest
-from parameterized import parameterized
 from typing import Dict, Tuple, Union
+from parameterized import parameterized
 from utils import access_nested_map
 
 
-class TestAcessNestedMap(Unittest.Testcase):
+
+class TestAccessNestedMap(Unittest.Testcase):
     """Class for testing the nested map"""
     # unittest does not support test decorators,
     # only tests created with @parameterized.expand will be executed
