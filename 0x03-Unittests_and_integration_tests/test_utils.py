@@ -7,7 +7,7 @@ from utils import access_nested_map
 
 
 
-class TestAccessNestedMap(Unittest.Testcase):
+class TestAccessNestedMap(unittest.Testcase):
     """Class for testing the nested map"""
     # unittest does not support test decorators,
     # only tests created with @parameterized.expand will be executed
@@ -26,3 +26,19 @@ class TestAccessNestedMap(Unittest.Testcase):
             ) -> None:
         """Test method that for expected results"""
         self.assertEqual(access_nested_map(nested_map, path), expected)
+
+    @parameterized.expand([
+        ({}, ("a",), KeyError),
+        ({"a": 1}, ("a", "b"), KeyError),
+    ])
+
+    def test_access_nested_map_exception(
+            self,
+            nested_map: Dict,
+            path: Tuple[str],
+            exception: Exception
+            ) -> None:
+        """Test case for access_nested_map exceptions"""
+        with self.assertRaises(KeyError) as context:
+            access_nested_map(nested_map, path)
+        self.assertEqual(str(context.exception), exception)
