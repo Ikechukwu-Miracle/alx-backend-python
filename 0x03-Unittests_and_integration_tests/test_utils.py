@@ -2,8 +2,9 @@
 """Unittest module that is parameterized"""
 import unittest
 from typing import Dict, Tuple, Union
+from unittest.mock import patch, Mock
 from parameterized import parameterized
-from utils import access_nested_map
+from utils import access_nested_map, get_json
 
 
 
@@ -42,3 +43,23 @@ class TestAccessNestedMap(unittest.Testcase):
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
         self.assertEqual(str(context.exception), exception)
+
+    
+class TestGetJson(unittest.TestCase):
+    """Class for testing utils.get_json method"""
+
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False}),
+    ])
+
+    def test_get_json(
+            self,
+            test_url: str,
+            test_payload: Dict,
+            ) -> None:
+        """Test case for get_json output"""
+        params = {'json.return_value': test_payload}
+        with patch("requests.get", return_value=Mock(**params)) as getReq:
+            self.assertEqual(get_json(test_url), test_payload)
+            getReq.assert_called_once_with(test_url)
